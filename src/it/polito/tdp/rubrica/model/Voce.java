@@ -15,6 +15,12 @@ public class Voce {
 	private String email ;
 	private String telefono ;
 	
+	/**
+	 * Crea una nuova {@link Voce}
+	 * @param nome nome individuo
+	 * @param email indirizzo e-mail
+	 * @param telefono numero telefonico
+	 */
 	public Voce(String nome, String email, String telefono) {
 		super();
 		this.nome = nome;
