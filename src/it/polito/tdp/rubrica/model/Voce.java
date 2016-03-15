@@ -70,6 +70,11 @@ public class Voce {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Voce [nome=" + nome + ", email=" + email + ", telefono=" + telefono + "]";
+	}
 	
 	
 	
