@@ -73,7 +73,7 @@ public class Voce {
 
 	@Override
 	public String toString() {
-		return "Voce [nome=" + nome + ", email=" + email + ", telefono=" + telefono + "]";
+		return nome ;
 	}
 	
 	

@@ -7,6 +7,7 @@ import it.polito.tdp.rubrica.model.RubricaModel;
 import it.polito.tdp.rubrica.model.Voce;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -31,6 +32,9 @@ public class RubricaController {
     
     @FXML
     private Label lblStato ;
+    
+    @FXML
+    private ComboBox<String> boxCerca;
 
     @FXML
     void doCerca(ActionEvent event) {
@@ -52,6 +56,28 @@ public class RubricaController {
     			//txtEmail.setText("");
     			txtEmail.clear();
     			txtTelefono.setText("");
+    			lblStato.setText("Elemento non trovato") ;
+    		}
+    	}
+
+    }
+    
+    @FXML
+    void doCercaTendina(ActionEvent event) {
+    	String nome = boxCerca.getValue() ;
+    	
+    	if(nome==null) {
+    		lblStato.setText("Dati mancanti") ;
+    	} else {
+    		Voce v = model.findVoceByNome(nome) ;
+    		
+    		if(v!=null) {
+    			// trovato
+    			txtEmail.setText(v.getEmail());
+    			txtTelefono.setText(v.getTelefono());
+    			lblStato.setText("Elemento trovato") ;
+    		} else {
+    			// Non deve capitare!!!
     			lblStato.setText("Elemento non trovato") ;
     		}
     	}
@@ -81,12 +107,18 @@ public class RubricaController {
         		lblStato.setText("Voce già in elenco");
     		} else {
         		lblStato.setText("Voce inserita");
+        		aggiornaTendina() ;
     		}
     	}
-    	
-
     }
 
+    private void aggiornaTendina() {
+    	boxCerca.getItems().clear() ;
+    	boxCerca.getItems().addAll(model.getAllNome()) ;
+    	
+    	//TODO: aggiornare la tendina in modo incrementale anziché ricrearla da zero ogni volta
+    }
+    
     public void setModel( RubricaModel model ) {
     	this.model = model ;
     }

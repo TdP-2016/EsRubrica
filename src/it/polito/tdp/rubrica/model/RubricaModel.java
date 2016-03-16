@@ -1,6 +1,8 @@
 package it.polito.tdp.rubrica.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -57,6 +59,31 @@ public class RubricaModel {
 		return null ;
 		
 	}
+	
+	/**
+	 * Restituisce tutti i nomi degli elementi inseriti in rubrica,
+	 * in ordine alfabetico.
+	 * 
+	 * @return
+	 */
+	public List<String> getAllNome() {
+		List <String> nomi = new LinkedList<String>() ;
+		for(Voce v: rubrica) {
+			nomi.add(v.getNome()) ;
+		}
+		
+		Collections.sort(nomi);
+		return nomi ;
+	}
+	
+	/**
+	 * Restituisce la copia integrale della rubrica
+	 * @return
+	 */
+	public List<Voce> getAllVoce() {
+		return rubrica ;
+	}
+
 	
 	public static void main(String [] args) {
 		
