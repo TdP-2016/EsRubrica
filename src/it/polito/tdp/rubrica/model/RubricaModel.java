@@ -3,6 +3,8 @@ package it.polito.tdp.rubrica.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polito.tdp.rubrica.db.VoceDAO;
+
 /**
  * L'insieme di tutte le {@link Voce} della rubrica,
  * ed i metodi per poter gestire tale insieme
@@ -11,10 +13,8 @@ import java.util.List;
  */
 public class RubricaModel {
 
-	private List<Voce> rubrica ;
 	
 	public RubricaModel() {
-		this.rubrica = new ArrayList<Voce>() ;
 	}
 
 	/**
@@ -28,12 +28,11 @@ public class RubricaModel {
 	 */
 	public boolean addVoce(Voce v) {
 		
-		if( rubrica.contains(v) ) {
+		VoceDAO dao = new VoceDAO() ;
+		if( dao.findVoceByNome(v.getNome()) != null )
 			return false ;
-		} else {
-			rubrica.add(v) ;
-			return true ;
-		}
+		
+		return dao.addVoce(v) ;
 		
 	}
 	
@@ -48,33 +47,9 @@ public class RubricaModel {
 	 */
 	public Voce findVoceByNome(String nome) {
 		
-		for( Voce v : rubrica ) {
-			if( v.getNome().equals(nome)) {
-				return v ;
-			}
-		}
-		
-		return null ;
-		
+		VoceDAO dao = new VoceDAO() ;
+		Voce v = dao.findVoceByNome(nome) ;
+		return v ;
 	}
 	
-	public static void main(String [] args) {
-		
-		RubricaModel m = new RubricaModel() ;
-		
-		boolean r1 = m.addVoce(new Voce("Fulvio", "fulvio.corno@polito.it", "7053")) ;
-		boolean r2 = m.addVoce(new Voce("Giovanni", "giovanni.squillero@polito.it", "7077")) ;
-		boolean r3 = m.addVoce(new Voce("Fulvio", "f.qualcunaltro@gmail.com", "345543")) ;
-		
-		System.out.println(r1);
-		System.out.println(r2);
-		System.out.println(r3);
-		
-		Voce v1 = m.findVoceByNome("Giovanni") ;
-		Voce v2 = m.findVoceByNome("Piero") ;
-		
-		System.out.println(v1);
-		System.out.println(v2);
-
-	}
 }
